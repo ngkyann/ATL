@@ -16,7 +16,7 @@ All notable changes to the AI Tag Language (ATL) specification will be documente
 
 \- Defined the 4 core architectural tag types for ATL:
 
-&#x20; - \*\*Flag Tags\*\*: Binary trigger actions (e.g., `\[list]`, `\[search]`).
+&#x20; - \*\*Flag Tags\*\*: Binary trigger actions (e.g., `\[list]`, `\[result]`).
 
 &#x20; - \*\*Type Tags\*\*: Output format specifiers (e.g., `\[file:pdf]`, `\[image:png]`).
 
@@ -24,7 +24,13 @@ All notable changes to the AI Tag Language (ATL) specification will be documente
 
 &#x20; - \*\*Special Tags\*\*: Non-executing engine rules (e.g., `//\[tag]//` for comments).
 
-\- Added global AI Error Handling rules for unsupported tag requests.
+\## - 2026-03-16
+
+\### Deleted
+
+\- Removed [search] and [think] as it is unnecessary.
+
+\- Removed [important] as it serves no useful purpose.
 
 
 

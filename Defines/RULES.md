@@ -16,11 +16,11 @@ Every ATL prompt consists of distinct tag classifications that the AI engine mus
 
 
 
-\*   \*\*Flag Tags `\[tag]`\*\*: Core operational switches. They act as binary system toggles that trigger specific processing behaviors or global formatting modes (e.g., `\[list]`, `\[search]`, `\[result]`).
+\*   \*\*Flag Tags `\[tag]`\*\*: Core operational switches. They act as binary system toggles that trigger specific processing behaviors or global formatting modes (e.g., `\[list]`, `\[text]`, `\[result]`).
 
-\*   \*\*Type Tags `\[category:type]`\*\*: Output wrapper controllers. They enforce structural formatting or layout constraints (e.g., `\[file:type]`).
+\*   \*\*Type Tags `\[role:type]`\*\*: Output wrapper controllers. They enforce structural formatting or layout constraints (e.g., `\[file:type]`).
 
-\*   \*\*Param Tags `\[key:value]`\*\*: Dynamic data filters. They pass numeric restrictions, variables, or static focus criteria directly into the execution context (e.g., `\[size:value]`).
+\*   \*\*Param Tags `\[key:value]`\*\*: Dynamic data filters. They pass numeric restrictions, variables, or static focus criteria directly into the execution context (e.g., `\[size:param]`).
 
 \*   \*\*Special Tags `//...//` or `?\[...]?`\*\*: Engine-level syntax overrides. They use alternative non-square bracket formatting to handle comments, conditional bypasses, or optional execution rules.
 
@@ -40,9 +40,6 @@ When processing multiple tags within a single prompt, the AI engine resolves the
 
 2\.  \*\*Tier 2: Universal Equal Priority (Flag, Type, and Param Tags)\*\*: Once Special Tags are resolved, all standard tags hold \*\*equal weight\*\*. The engine processes them concurrently to shape the data boundaries, logic path, and final wrapper together.
 
-
-
-\*Conflict Resolution\*: If two equal-priority tags conflict directly (e.g., `\[result]` and `\[explain]` applied to the same text), the tag declared furthest to the right (latest in the prompt stream) takes precedence and overrides the former.
 
 
 
@@ -66,7 +63,7 @@ ATL supports \*\*Pipeline Chaining\*\* via the dot (`.`) operator, allowing user
 
 \*   `\[result].\[list]`: Instructs the AI to extract \*only the raw answer payload\* (`\[result]`), and then instantly pipe that payload into a \*clean bulleted/numbered format\* (`\[list]`).
 
-\*   `\[search].\[file:csv]`: Forces a \*live web search execution\* (`\[search]`) first, then formats the extracted real-time data rows \*strictly within a raw CSV code block\* (`\[file:csv]`).
+\*   `\[list].\[file:csv]`: Forces a \*live web search execution\* (`\[list]`) first, then formats the extracted real-time data rows \*strictly within a raw CSV code block\* (`\[file:csv]`).
 
 
 
