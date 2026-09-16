@@ -1,0 +1,15 @@
+# Tag name: [role:param]
+**Tag type:** Param Tag
+
+### 📝 Function
+Instructs the AI to immediately adopt a specific persona, professional identity, or character traits defined by the parameter (e.g., `[role:expert_coder]`, `[role:lawyer]`, `[role:math_tutor]`). It dynamically recalibrates the AI's tone, vocabulary, depth of knowledge, and decision-making framework to match the requested expertise.
+
+### ⚙️ Usage
+Insert the desired role or profession inside the tag parameter. Use this tag when you need specialized advice, professional-grade code, or realistic roleplay responses tailored to a specific industry or domain.
+
+### 🎯 Example
+**User Prompt:**
+> `[role:senior_ux_designer]` Critique this homepage button layout: "Click here to buy now".
+
+**AI Output:**
+From a senior UX perspective, that microcopy is too generic and passive. It increases cognitive load. You should replace it with action-oriented, value-driven text like "Get Started Instarily" or "Claim Your Discount". Also, ensure the button color has a contrast ratio of at least 4.5:1 against the background to meet WCAG AA accessibility standards.
