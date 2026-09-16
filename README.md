@@ -22,13 +22,13 @@ ATL is a compact, pipeline-oriented prompt engine framework designed to standard
 
 &#x20; - `RULES.md` - Core syntax, tag chaining (`.`), and precedence rules.
 
-&#x20; - 📁 `1\_Flag\_Tags/` - Binary system operational toggles (e.g., `\[list]`, `\[search]`).
+&#x20; - 📁 `Flag Tags/` - Binary system operational toggles (e.g., `\[list]`, `\[search]`).
 
-&#x20; - 📁 `2\_Type\_Tags/` - Structural output wrappers (e.g., `\[file:type]`).
+&#x20; - 📁 `Type Tags/` - Structural output wrappers (e.g., `\[file:type]`).
 
-&#x20; - 📁 `3\_Param\_Tags/` - Dynamic data constraints and filters (e.g., `\[size:value]`).
+&#x20; - 📁 `Param Tags/` - Dynamic data constraints and filters (e.g., `\[size:value]`).
 
-&#x20; - 📁 `4\_Special\_Tags/` - Compiler overrides for comments and optional tags.
+&#x20; - 📁 `Special Tags/` - Compiler overrides for comments and optional tags.
 
 \- 📁 `Examples/` - Real-world "Before/After" test scenarios (Data analysis, Math, etc.).
 
