@@ -1,32 +1,30 @@
-\# Tag name: ?\[tag]?
+# Tag name: `?[tag]?`
 
-\*\*Tag type:\*\* Special Tag
+**Tag type:** Special Tag
 
+## Function
 
+Marks an ATL tag or directive as optional. The model or application may decide whether the tag is useful for the current task.
 
-\### 📝 Function
+## Usage
 
-Marks an embedded ATL tag or a specific directive as entirely optional. It grants the AI full autonomy to evaluate the context and decide whether executing the enclosed tag is necessary. If the AI determines that its internal capabilities or static knowledge are sufficient, it can gracefully bypass the directive.
+Wrap a standard tag with question marks on both sides:
 
+```text
+?[search:name]?
+?[diagram:mermaid]?
+```
 
+Optional syntax is a recommendation, not a way to guarantee tool behavior or hide information.
 
-\### ⚙️ Usage
+## Example
 
-Wrap any standard ATL tag with question marks `?` on both sides (e.g., `?\[search]?`, `?\[table]?`). Use this when you want to suggest a tool or formatting style without strictly forcing the model to allocate resources or tokens for it if it isn't required.
+**User prompt:**
 
+> Who won the Nobel Prize in Physics in 1921? If available, `?[search:name]?` may verify the answer against an authoritative source.
 
+**Example answer:**
 
-\### 🎯 Example
+> Albert Einstein received the 1921 Nobel Prize in Physics for his explanation of the photoelectric effect. The model may answer from existing knowledge if retrieval is unavailable.
 
-\*\*User Prompt:\*\*
-
-> Who won the Nobel Prize in Physics in 1921? For this query, ?\[search]? is optional.
-
-
-
-\*\*AI Output:\*\*
-
-Albert Einstein won the 1921 Nobel Prize in Physics for his services to Theoretical Physics, and especially for his discovery of the law of the photoelectric effect. \*(Note: The AI successfully bypassed the live search directive because this historical fact is permanently verified within its static core dataset).\*
-
-
-
+Use `[search:name]` without the optional wrapper when retrieval is mandatory for the workflow.

@@ -1,18 +1,31 @@
-# Tag name: //[tag]// & //*content*//
+# Tag names: `//[tag]//` and `//*content*//`
+
 **Tag type:** Special Tag
 
-### 📝 Function
-Provides two distinct compiler-style commenting behaviors to control prompt execution:
-1. `//[tag]//` (Tag Skip): Temporarily disables or skips the execution of a specific standalone ATL tag, treating it as dead text.
-2. `//*content*//` (Block Comment): Completely hides and comments out any written content, text, or multiple tags wrapped inside. The AI will completely ignore this block during its generation process.
+## Function
 
-### ⚙️ Usage
-- Use `//[tag]//` when you want to mention a tag as an inline text example without triggering its behavior.
-- Use `//*your note or tags*//` when you want to leave developer notes, metadata, or draft sections that the AI engine must not process or respond to.
+- `//[tag]//` marks a tag as ordinary text and disables its instruction.
+- `//*content*//` marks a block of text or tags for the model or application to ignore.
 
-### 🎯 Example
-**User Prompt:**
-> What is the purpose of the list format? For example, your system supports the //[list]// tag. //*Developer note: This is an overview question, do not output a structured list right now.*//
+## Usage
 
-**AI Output:**
-The purpose of a list format is to present information clearly and sequentially using bullet points or numbers, making it highly scannable for readers. *(Note: The AI successfully skipped the execution of [list] and completely ignored the hidden developer note).*
+Use special tags when discussing or drafting ATL syntax:
+
+```text
+The `//[list]//` tag would normally request list formatting.
+//*Draft note: keep the answer in paragraphs.*// Summarize the article.
+```
+
+These forms are prompt conventions unless a host application implements an ATL parser. They should not be used to hide sensitive information or as a security boundary.
+
+## Example
+
+**User prompt:**
+
+> Explain list formatting. The `//[list]//` example is only mention of a tag. `//*Do not use bullets in this answer.*//`
+
+**Example answer:**
+
+> List formatting presents information as ordered or unordered items to improve readability and scanning.
+
+The exact behavior depends on whether the model is given the ATL rules and whether the host application preprocesses special tags.

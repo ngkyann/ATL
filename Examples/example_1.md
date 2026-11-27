@@ -1,33 +1,35 @@
+# Example: Data Extraction and Formatting
 
-# Example: Data Extraction & Formatting
-**Tags Used:** `[result]`, `[file:json]`, `[search]`
-
----
+**Tags used:** `[search:name]`, `[result]`, `[file:json]`
 
 ## Scenario
-You want to get the financial population statistics of Vietnam in 2025 to paste into your database.
 
-### ❌ Option 1: Before ATL (Standard Natural Language)
-**User Prompt:**
-> "Can you search the web and find the official population of Vietnam in 2025? Please give me just the numbers and structure it as a clean JSON object with keys like 'country', 'year', and 'population'. Do not write any greetings or explanations because I want to copy the raw data directly."
+Retrieve the population of Vietnam for 2025 and return a database-ready JSON object.
 
-**The Problem:** 
-AI often still outputs conversational fluff like *"Sure, here is the JSON data you requested..."* or fails to restrict the output strictly to a copyable raw block, forcing you to manually edit the text.
+## Before ATL
 
----
+> Search for an official source for Vietnam's 2025 population. Return only the numbers in a clean JSON object with the keys `country`, `year`, and `population`. Do not add greetings or explanations.
 
-###  Option 2: After ATL (Using Prompt Engine Framework)
-**User Prompt:**
-> [search].[result].[file:json] Vietnam population 2025
+This natural-language prompt is clear, but it does not encode the source or formatting convention as reusable tags.
 
-**AI Output:**
+## With ATL
+
+> `[search:name].[result].[file:json]` Vietnam population 2025. Use a verifiable official source and include the source URL as `source` only if it fits the requested schema.
+
+Example result:
+
 ```json
 {
   "country": "Vietnam",
   "year": 2025,
-  "population": 101400000
+  "population": 101400000,
+  "source": "https://example.gov.vn/official-source"
 }
 ```
 
-**Why it works:**
-The chained pipeline `[search].[result].[file:json]` forces the AI engine to execute a live web search first, strip away 100% of introductory text, and wrap the data exactly inside a raw JSON block in one single turn.
+## Notes
+
+- `[search:name]` requests retrieval support for the named subject. It does not create internet access.
+- `[result]` requests concise output, but the final answer should still be validated for factual accuracy.
+- `[file:json]` requests JSON formatting. The application should validate the JSON and not assume that a code block is sufficient to guarantee valid syntax.
+- Search results and population estimates should be sourced and checked against an authoritative dataset.

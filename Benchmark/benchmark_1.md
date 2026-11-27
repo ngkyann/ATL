@@ -1,58 +1,47 @@
-\# Benchmark: Tag Compliance \& Token Efficiency (v0.1)
+# Benchmark Method: ATL Tag Compliance (v0.1)
 
+This file describes how ATL prompts should be evaluated. It does not claim a benchmark result until tests, models, and results are recorded.
 
+## Evaluation goals
 
-This document evaluates the operational efficiency and output structural integrity of the AI Tag Language (ATL) framework against traditional natural language prompt structures.
+Compare an ATL prompt with an equivalent natural-language prompt across the following metrics:
 
+1. **Structural compliance** — valid JSON, CSV, Mermaid, or plain-text output where applicable.
+2. **Instruction compliance** — presence or absence of explanations, lists, steps, and conversational filler.
+3. **Factual correctness** — independent validation of task-specific claims.
+4. **Input size** — prompt tokens before and after ATL conventions are added.
+5. **Output size** — response tokens for equivalent tasks.
+6. **Latency** — median and tail response time, if measured.
 
+## Test conditions
 
-\---
+Record the following for every benchmark run:
 
+- Model name and version.
+- Provider and API or application settings.
+- System/developer prompt.
+- Temperature and other relevant sampling settings.
+- Number of repetitions.
+- Search or retrieval availability.
+- Test date and dataset version.
 
+## Evaluation method
 
-\## 1. Output Quality \& Compliance Analysis
+1. Create one prompt in natural language and one semantically equivalent ATL prompt.
+2. Run both prompts repeatedly against the same model configuration.
+3. Score each output with deterministic checks where possible.
+4. Use human review for factual and semantic correctness.
+5. Report failures individually rather than averaging away important edge cases.
+6. Publish raw prompts and result samples when the license and privacy requirements permit.
 
-Traditional natural language prompting often suffers from "conversational leakage"—where the AI includes unsolicited greetings, explanations, or formatting errors. ATL uses structured single-token anchors to eliminate these issues.
+## Example scorecard
 
+| Metric                   | Natural-language prompt | ATL prompt | Notes                                     |
+| ------------------------ | ----------------------: | ---------: | ----------------------------------------- |
+| Valid JSON output        |                     N/A |        N/A | Replace with measured pass rate           |
+| Direct-answer compliance |                     N/A |        N/A | Replace with measured pass rate           |
+| Median token usage       |                     N/A |        N/A | Report input and output tokens separately |
+| Median latency           |                     N/A |        N/A | Report environment and provider           |
+| Factual correctness      |                     N/A |        N/A | Require independent verification          |
 
-
-| Feature Matrix | Standard Prompting (Natural Language) | ATL Prompting Framework |
-
-| :--- | :--- | :--- |
-
-| \*\*Output Integrity\*\* | High risk of conversational fluff (e.g., \*"Sure, here is your data..."\*). | \*\*Guaranteed clean payload.\*\* Eliminates all introductory and trailing conversational noise. |
-
-| \*\*Formatting Control\*\* | AI often mixes raw code blocks with markdown descriptions. | \*\*Strict confinement.\*\* Forces responses into precise blocks (JSON, CSV, Mermaid, etc.). |
-
-| \*\*Logical Separation\*\* | Reasoning processes are frequently blended into the final answer. | \*\*Strict pipeline separation.\*\* Keeps internal thinking blocks detached from the structured output. |
-
-
-
-\---
-
-
-
-\## 2. Token Efficiency \& Context Maximization
-
-By replacing lengthy, descriptive formatting instructions with compact, pipeline-oriented tag chains, ATL inherently reduces prompt input size and maximizes context window efficiency.
-
-
-
-\### Context Comparison:
-
-\*   \*\*Standard Framework Pattern\*\*: The user must explicitly write sentences defining constraints: \*"Please fetch real-time data, do not include any explanatory text around it, and format it exactly inside a raw JSON wrapper."\*
-
-\*   \*\*ATL Framework Pattern\*\*: The user condenses the entire constraint logic into a compact, single-turn chain: `\[search].\[result].\[file:json]`
-
-
-
-\### Major Efficiency Impacts:
-
-1\.  \*\*Drastic Input Reduction\*\*: Minimizes input word counts, leaving more room in the context window for actual user prompt payloads and data injection.
-
-2\.  \*\*Deterministic Focus\*\*: Eliminates semantic ambiguity for the AI engine, requiring fewer attention tokens to parse constraints and lowering the risk of accidental compliance failures.
-
-3\.  \*\*Cost and Speed Optimization\*\*: Smaller input footprints directly translate to lower API processing costs and faster initial Response Time-to-First-Token (TTFT).
-
-
-
+ATL may reduce repetition in prompts, but shorter input is not automatically cheaper or faster. Total cost and latency also depend on output length, provider overhead, model state, and retrieval tooling.

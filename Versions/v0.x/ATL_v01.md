@@ -1,41 +1,81 @@
-# AI Tag Language (ATL) - System Specification v0.1
+# AI Tag Language (ATL) — Specification v0.1
 
-# Creator: ngkyann | License: CC BY-NC 4.0
+# Creator: ngkyann | License: see the repository `LICENSE`
 
-\[SYSTEM INSTRUCTION]
-You are an AI engine natively supporting ATL syntax. Parse and execute tags embedded in prompts sequentially from left to right. Do not output the tags themselves.
+## Purpose
 
-\[EXECUTION RULES]
+ATL is a prompt-formatting convention for describing the desired output structure and constraints to an AI model. ATL tags are interpreted by the AI or by an application using an ATL prompt adapter; ATL does not include a built-in parser, runtime, or guaranteed model behavior.
 
-1. Precedence: Special Tags have highest priority. Flag, Type, and Param Tags have equal priority (if they conflict, the rightmost tag wins).
-2. Chaining: Use dot (.) operator to pipeline actions. Example: \[result].\[list] means extract only the final answer, then format it as a list.
+## System instruction
 
-\[TAG DEFINITIONS]
+> Parse ATL tags in a prompt according to the rules below. Apply supported tags to the requested task, ignore unsupported tags when possible, and do not print the tags unless the user asks for them.
 
-* Flag Tags (System switches):
+## Syntax
 
-  * \[list]: Output entirely as a clean bulleted/numbered list. No filler text.
-  * \[result]: Output ONLY the direct final answer. Strip all explanations.
-  * \[explain]: Focus entirely on conceptual breakdown. Do not show final answers/code.
-  * \[step]: Break down the execution process into sequential, numbered steps.
-  * \[text]: Enforce raw plain text output. Disable all code blocks and markdown.
-  * \[example]: Explain the core concept primarily using practical, real-world examples.
-* Type Tags (Output structures):
+- Flag tag: `[tag]`
+- Parameter tag: `[key:value]`
+- Special tag: `//[tag]//` or `?[tag]?`
+- Chained tags: `[tag1].[tag2].[tag3]`
 
-  * \[file:type]: Format entire response inside a raw code block of that type (e.g., \[file:json], \[file:csv]).
-  * \[diagram:type]: Render response as a text diagram (e.g., \[diagram:mermaid]).
-  * \[language:type]: Enforce response translation strictly in target language (e.g., \[language:ja]).
-* Param Tags (Dynamic constraints):
+Use tags only for directives that the target model and application support. Plain text should remain the primary description of the task and factual requirements.
 
-  * \[search:link/name]: Restrict web search strictly to a domain link or specific entity name.
-  * \[size:param]: Force strict length limitation (e.g., \[size:100words], \[size:3paragraphs]).
-  * \[role:param]: Immediately adopt a specific professional persona/vocabulary framework.
-* Special Tags (Compiler overrides):
+## Precedence
 
-  * //\[tag]//: Skip tag. Disables the enclosed tag, treating it as native text.
-  * //*content*//: Block comment. Completely ignore everything wrapped inside.
-  * ?\[tag]?: Optional tag. AI decides if execution is necessary based on context.
+1. Block comments and tag skips are resolved first.
+2. Explicit conflicts should be resolved by the tag closest to the end of the prompt.
+3. Output constraints should not override the user's factual question or required safety and correctness constraints.
 
-\[FALLBACK]
-If a tag is physically unsupported by your platform, continues running with the existing tags.
+This precedence is a convention for prompt authors and applications. It is not an execution guarantee for a model that has not been given the corresponding instructions.
 
+## Chaining
+
+Dots separate related directives. The order is primarily useful for describing the intended sequence, but ATL does not require or provide a real processing pipeline.
+
+Examples:
+
+- `[result].[list]`: return only the direct answer and present it as a list.
+- `[step].[file:python]`: organize instructions as steps, but return a Python code artifact where that is the intended output.
+
+Avoid combinations with contradictory goals, such as `[result]` with `[explain]` or `[text]` with `[file:json]`.
+
+## Active tags
+
+### Flag tags
+
+- `[list]`: Present the response as a bulleted or numbered list.
+- `[result]`: Focus on the direct answer and omit unnecessary discussion.
+- `[explain]`: Explain concepts and reasoning.
+- `[step]`: Present the work as an ordered sequence.
+- `[text]`: Avoid Markdown and code-block formatting.
+- `[example]`: Use practical examples to explain the subject.
+
+### Type tags
+
+- `[file:type]`: Request a code block or text artifact for a format such as JSON, CSV, HTML, or Python.
+- `[diagram:type]`: Request a diagram in Mermaid, PlantUML, ASCII, or another supported syntax.
+- `[language:type]`: Request output in the specified language or locale.
+
+### Parameter tags
+
+- `[size:param]`: Request a word, paragraph, line, or character limit.
+- `[role:param]`: Request a specific perspective or professional tone.
+- `[search:link]` or `[search:name]`: Request that available search or retrieval tooling prioritize a domain or named entity.
+
+Search tags do not create internet access. The host application must provide retrieval tooling and the model must be able to use it.
+
+### Special tags
+
+- `//[tag]//`: Treat the enclosed tag as ordinary text and do not execute it.
+- `//*content*//`: Ignore the enclosed text and tags.
+- `?[tag]?`: Describe the tag as optional; do not force an unavailable action.
+
+## Conflict and fallback behavior
+
+- A tag that conflicts with another tag should be handled explicitly by the user or application.
+- Unsupported tags should remain inert rather than being invented by the model.
+- Safety, legal, factual, and system constraints take priority over formatting tags.
+- Output accuracy is not guaranteed solely because a tag was present.
+
+## Compatibility
+
+ATL behavior is model-dependent. Validate important prompts with representative tests across target models and keep a natural-language version as the fallback.

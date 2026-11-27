@@ -1,36 +1,34 @@
-\# Changelog
+# Changelog
 
+All notable changes to the AI Tag Language (ATL) specification are documented here.
 
+## 2026-11-27
 
-All notable changes to the AI Tag Language (ATL) specification will be documented in this file.
+### Documentation corrections
 
+- Reworked the README to match the actual repository structure and terminology.
+- Clarified that ATL v0.1 is a prompt convention, not a standalone parser or runtime.
+- Removed guarantees of deterministic behavior and unsupported cost or latency claims.
+- Replaced the strict left-to-right “pipeline execution” description with a documented chaining convention.
+- Updated examples to use only active tags.
+- Removed obsolete `[think]` usage from examples.
+- Replaced the benchmark claims with an explicit, repeatable evaluation method.
+- Marked `[important:param]` as deprecated.
+- Corrected references to the core specification file.
 
+## 2026-03-16
 
-\## - 2026-03-16
+### Added
 
-\### Added
+- Initial release of the AI Tag Language (ATL) specification.
+- Created `ATL_v01.md` as a core instruction file.
+- Defined four tag categories:
+  - **Flag tags**: output behavior switches such as `[list]` and `[result]`.
+  - **Type tags**: output format specifiers such as `[file:pdf]` and `[diagram:mermaid]`.
+  - **Parameter tags**: constraints and retrieval parameters such as `[search:link]` and `[size:100words]`.
+  - **Special tags**: comments, skips, and optional directives.
 
-\- Launching the initial release of AI Tag Language (ATL) Specification.
+### Removed
 
-\- Created `ATL\_v01.md` as the core system instruction file for direct AI injection.
-
-\- Defined the 4 core architectural tag types for ATL:
-
-&#x20; - \*\*Flag Tags\*\*: Binary trigger actions (e.g., `\[list]`, `\[result]`).
-
-&#x20; - \*\*Type Tags\*\*: Output format specifiers (e.g., `\[file:pdf]`, `\[image:png]`).
-
-&#x20; - \*\*Param Tags\*\*: Key-value configurations (e.g., `\[search:link]`, `\[size:100]`).
-
-&#x20; - \*\*Special Tags\*\*: Non-executing engine rules (e.g., `//\[tag]//` for comments).
-
-\## - 2026-03-16
-
-\### Deleted
-
-\- Removed [search] and [think] as it is unnecessary.
-
-\- Removed [important] as it serves no useful purpose.
-
-
-
+- Standalone `[search]` and `[think]` tags.
+- `[important:param]` is deprecated because it makes reliability claims that are not technically guaranteed.
